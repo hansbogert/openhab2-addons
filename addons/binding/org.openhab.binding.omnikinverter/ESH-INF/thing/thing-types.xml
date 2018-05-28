@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<thing:thing-descriptions bindingId="omnikinverter"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:thing="http://eclipse.org/smarthome/schemas/thing-description/v1.0.0"
+	xsi:schemaLocation="http://eclipse.org/smarthome/schemas/thing-description/v1.0.0 http://eclipse.org/smarthome/schemas/thing-description-1.0.0.xsd">
+
+	<!-- Sample Thing Type -->
+	<thing-type id="omnik">
+		<label>OmnikInverter Binding Thing</label>
+		<description>Thing for OmnikInverter Binding</description>
+
+		<channels>
+			<channel id="power" typeId="power" />
+			<channel id="energyToday" typeId="energyToday" />
+			
+		</channels>
+
+		<config-description>
+			<parameter name="omnikHostname" type="text" required="true">
+				<label>The hostname or IP of the Omnik Inverter</label>
+				<description></description>
+			</parameter>
+			<parameter name="omnikPort" type="integer" required="true">
+                <label>the TCP port of the Omnik inverter,usually 8899</label>
+                <description></description>
+                <default>8899</default>
+            </parameter>
+            <parameter name="omnikSerial" type="integer" required="true">
+                <label>The serial of the Omnik inverter's Wifi module. This the number part only.</label>
+                <description></description>
+            </parameter>
+		</config-description>
+
+	</thing-type>
+
+	<!-- Sample Channel Type -->
+	<channel-type id="power">
+		<item-type>Number</item-type>
+		<label>Instantaneous power</label>
+		<description>The instantaneous power generation</description>
+	</channel-type>
+	<channel-type id="energyToday">
+        <item-type>Number</item-type>
+        <label>Total generated energy today</label>
+        <description>the amount of energy generated today</description>
+    </channel-type>
+
+</thing:thing-descriptions>
