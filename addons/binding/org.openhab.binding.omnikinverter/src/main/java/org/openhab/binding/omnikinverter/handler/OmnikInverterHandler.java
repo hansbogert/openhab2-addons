@@ -18,9 +18,12 @@ import java.net.UnknownHostException;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
+import javax.measure.quantity.Energy;
+
 import org.eclipse.jdt.annotation.NonNullByDefault;
 import org.eclipse.jdt.annotation.Nullable;
-import org.eclipse.smarthome.core.library.types.DecimalType;
+import org.eclipse.smarthome.core.library.types.QuantityType;
+import org.eclipse.smarthome.core.library.unit.SmartHomeUnits;
 import org.eclipse.smarthome.core.thing.ChannelUID;
 import org.eclipse.smarthome.core.thing.Thing;
 import org.eclipse.smarthome.core.thing.ThingStatus;
@@ -80,14 +83,18 @@ public class OmnikInverterHandler extends BaseThingHandler {
     private void updateData() {
         try {
             message = inverter.pullCurrentStats();
-            updateState(OmnikInverterBindingConstants.CHANNEL_POWER, new DecimalType(message.getPower()));
-            updateState(OmnikInverterBindingConstants.CHANNEL_ENERGY_TODAY, new DecimalType(message.getEnergyToday()));
+            updateStatus(ThingStatus.ONLINE);
+
+            QuantityType powerQuantity = new QuantityType<>(message.getPower(), SmartHomeUnits.WATT);
+            updateState(OmnikInverterBindingConstants.CHANNEL_POWER, powerQuantity);
+
+            updateState(OmnikInverterBindingConstants.CHANNEL_ENERGY_TODAY,
+                    new QuantityType<Energy>(message.getEnergyToday(), SmartHomeUnits.KILOWATT_HOUR));
 
         } catch (UnknownHostException e) {
             updateStatus(ThingStatus.OFFLINE, ThingStatusDetail.COMMUNICATION_ERROR, "Unknown host provided");
         } catch (java.net.NoRouteToHostException e) {
             updateStatus(ThingStatus.OFFLINE, ThingStatusDetail.COMMUNICATION_ERROR, "No route to host");
-
         } catch (ConnectException e) {
             updateStatus(ThingStatus.OFFLINE, ThingStatusDetail.COMMUNICATION_ERROR,
                     "Host does not allow socket connection");

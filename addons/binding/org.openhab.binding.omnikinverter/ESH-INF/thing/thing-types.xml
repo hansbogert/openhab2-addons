@@ -35,14 +35,16 @@
 
 	<!-- Sample Channel Type -->
 	<channel-type id="power">
-		<item-type>Number</item-type>
+		<item-type>Number:Power</item-type>
 		<label>Instantaneous power</label>
 		<description>The instantaneous power generation</description>
+		<state readOnly="true" pattern="%.1f %unit%" />
 	</channel-type>
 	<channel-type id="energyToday">
-        <item-type>Number</item-type>
+        <item-type>Number:Energy</item-type>
         <label>Total generated energy today</label>
         <description>the amount of energy generated today</description>
+        <state readOnly="true" pattern="%.2f %unit%" />
     </channel-type>
 
 </thing:thing-descriptions>

@@ -11,6 +11,8 @@ Export-Package:
  org.openhab.binding.omnikinverter,
  org.openhab.binding.omnikinverter.handler
 Import-Package: 
+ javax.measure;version="1.0.0",
+ javax.measure.quantity;version="1.0.0",
  org.apache.commons.lang,
  org.eclipse.jdt.annotation;resolution:=optional,
  org.eclipse.smarthome.config.core,
@@ -23,3 +25,4 @@ Import-Package:
  org.openhab.binding.omnikinverter,
  org.slf4j
 Service-Component: OSGI-INF/*.xml
+Require-Bundle: org.eclipse.smarthome.core
