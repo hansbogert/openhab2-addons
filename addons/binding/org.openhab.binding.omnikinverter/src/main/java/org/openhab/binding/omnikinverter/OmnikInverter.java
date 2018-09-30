@@ -22,8 +22,8 @@ public class OmnikInverter {
     public OmnikInverterMessage pullCurrentStats() throws UnknownHostException, IOException {
         byte[] magicPacket = generateMagicPacket();
         byte[] returnMessage = new byte[1024];
-
         Socket socket = new Socket(host, port);
+        socket.setSoTimeout(5000);
         socket.getOutputStream().write(magicPacket);
         socket.getInputStream().read(returnMessage);
         socket.close();
