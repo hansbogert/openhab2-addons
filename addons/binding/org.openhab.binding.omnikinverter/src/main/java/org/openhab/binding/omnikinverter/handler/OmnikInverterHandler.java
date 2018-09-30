@@ -70,13 +70,6 @@ public class OmnikInverterHandler extends BaseThingHandler {
             if (command instanceof RefreshType) {
                 updateData();
             }
-            // TODO: handle command
-
-            // Note: if communication with thing fails for some reason,
-            // indicate that by setting the status with detail information
-            // updateStatus(ThingStatus.OFFLINE, ThingStatusDetail.COMMUNICATION_ERROR,
-            // "Could not control device at IP address x.x.x.x");
-
         }
     }
 
@@ -110,15 +103,6 @@ public class OmnikInverterHandler extends BaseThingHandler {
         config = getConfigAs(OmnikInverterConfiguration.class);
         inverter = new OmnikInverter(config.omnikHostname, config.omnikPort, config.omnikSerial);
 
-        // TODO: Initialize the thing. If done set status to ONLINE to indicate proper working.
-        // Long running initialization should be done asynchronously in background.
         pollingJob = scheduler.scheduleWithFixedDelay(this::updateData, 0, 10, TimeUnit.SECONDS);
-
-        // Note: When initialization can NOT be done set the status with more details for further
-        // analysis. See also class ThingStatusDetail for all available status details.
-        // Add a description to give user information to understand why thing does not work
-        // as expected. E.g.
-        // updateStatus(ThingStatus.OFFLINE, ThingStatusDetail.CONFIGURATION_ERROR,
-        // "Can not access device as username and/or password are invalid");
     }
 }
