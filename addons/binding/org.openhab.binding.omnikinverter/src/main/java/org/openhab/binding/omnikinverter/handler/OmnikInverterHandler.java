@@ -94,6 +94,9 @@ public class OmnikInverterHandler extends BaseThingHandler {
         } catch (IOException e) {
             e.printStackTrace();
             updateStatus(ThingStatus.OFFLINE, ThingStatusDetail.COMMUNICATION_ERROR, "Unknown communication exception");
+        } catch (Exception e) {
+            e.printStackTrace();
+            updateStatus(ThingStatus.OFFLINE, ThingStatusDetail.NONE, "Unknown exception");
         }
 
     }
